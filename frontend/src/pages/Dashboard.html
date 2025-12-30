@@ -6,33 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todoist Dashboard</title>
     <link rel="stylesheet" href="Dashboard.css">
-
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
 
     <div class="dashboard">
 
-        <aside class="sidebar hide">
+        <aside class="sidebar">
             <div class="user-section">
                 <img src="../assets/icon-to-do-app.png" class="avatar">
                 <span class="username">candy</span>
             </div>
 
-            <button class="add-task-btn">+ Add task</button>
+            <button class="add-task-btn">Add task</button>
 
             <nav class="menu">
-                <a class="menu-item"> Search</a>
-                <a class="menu-item active"> Inbox</a>
-                <a class="menu-item"> Today</a>
-                <a class="menu-item"> Upcoming</a>
-                <a class="menu-item"> Filters & Labels</a>
-                <a class="menu-item"> Completed</a>
+                <a class="menu-item"> <i class="fas fa-search"></i> Search</a>
+                <a class="menu-item active"> <i class="fas fa-inbox"></i> Inbox</a>
+                <a class="menu-item"> <i class="fas fa-calendar-day"></i> Today</a>
+                <a class="menu-item"> <i class="fas fa-calendar-alt"></i> Upcoming</a>
+                <a class="menu-item"> <i class="fas fa-filter"></i> Filters & Labels</a>
             </nav>
+
+            <div class="search-box">
+                <input type="text" placeholder="Search tasks..." class="search-input">
+            </div>
 
             <div class="project-section">
                 <p class="section-title">My Projects ▾</p>
-                <a class="menu-item"># Getting Started = <span class="count">15</span></a>
+                <a class="menu-item project-item" data-project="Getting Started">
+                    <span class="project-name"># Getting Started</span>
+                    <span class="count">0</span>
+                </a>
             </div>
 
             <div class="bottom-menu">
@@ -43,172 +50,146 @@
 
 
         <main class="main">
+            
             <div class="Inbox">
                 <h1 class="page-title">Inbox</h1>
-                <div class="empty-box">
+                
+                <div class="empty-box" style="display: none;">
                     <img src="../assets/icon-to-do-app.png" class="empty-img">
                     <h2>Capture now, plan later</h2>
                     <p class="desc">
                         Inbox is your go-to spot for quick task entry. Clear your mind now, organize when you're ready.
                     </p>
-                    <button class="add-task-main">+ Add task</button>
                 </div>
 
+                <div id="task-entry-inbox"></div>
 
-                <div class="task-entry-box"
-                    style="display: none; border: 1px solid #ccc;  border-radius: 5px;padding: 10px;">
-                    <input type="text" placeholder="Practice math problems daily at 4pm" class="task-title-input">
-                    <br>
-                    <textarea placeholder="Description" class="task-desc-input"></textarea>
-                    <div class="task-options">
-                        <input type="date" class="task-date">
-                        <select class="task-priority">
-                            <option value="">Priority</option>
-                            <option value="high">High</option>
-                            <option value="medium">Medium</option>
-                            <option value="low">Low</option>
-                        </select>
-                        <input type="time" class="task-reminder">
-                    </div>
-                    <div class="task-actions">
-                        <button class="cancel-task">Cancel</button>
-                        <button class="confirm-add-task">Add task</button>
-                    </div>
+                <div class="task-list" id="inbox-task-list"></div>
+
+                <div class="add-task-bottom">
+                    <button class="add-task-inline-btn" data-section="inbox">
+                        <span class="plus-icon">+</span> 
+                        <span class="add-text">Add task</span>
+                    </button>
                 </div>
             </div>
+
             <div class="Search" style="display: none;">
-
             </div>
+
             <div class="Today" style="display: none;">
                 <div class="today-header">
                     <h1 class="page-title">Today</h1>
-                    <span class="today-count">3</span>
+                    <span class="today-count">0</span>
                 </div>
 
                 <div class="section-title-row">
-                    <span class="section-title">Overdue</span>
+                    <span class="section-title">OVERDUE</span>
                 </div>
 
-                <div class="task-list">
+                <div class="task-list" id="today-task-list"></div>
 
-                    <div class="task-item">
-                        <input type="checkbox" class="task-checkbox">
+                <div id="task-entry-today"></div>
 
-                        <div class="task-content">
-                            <div class="task-title-row">
-                                <span class="task-title">For you: getting started with Todoist (Watch) </span>
-                            </div>
-                            <div class="task-meta">
-                                <span class="date-badge overdue">5 Dec</span>
-                                <span class="project-tag">Getting Started </span>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="task-item">
-                        <input type="checkbox" class="task-checkbox">
-
-                        <div class="task-content">
-                            <div class="task-title-row">
-                                <span class="task-title">Todoist on mobile (Watch | Download)</span>
-                            </div>
-                            <div class="task-desc">
-                                You are 7x more likely to complete your tasks when you download Todoist on 2+ devices!
-                            </div>
-                            <div class="task-meta">
-                                <span class="date-badge overdue">5 Dec</span>
-                                <span class="project-tag">Getting Started </span>
-                                <span class="project-tag">Todoist 10...</span>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="task-item">
-                        <input type="checkbox" class="task-checkbox">
-
-                        <div class="task-content">
-                            <div class="task-title-row">
-                                <span class="task-title">All about tasks (Watch)</span>
-                            </div>
-                            <div class="task-meta">
-                                <span class="date-badge overdue">6 Dec</span>
-                                <span class="project-tag">Getting Started 👋</span>
-                                <span class="project-tag">Todoist 10...</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="today-footer">
-                    <span class="today-date-line">17 Dec · Today · Wednesday</span>
-                    <button class="add-task-inline"><span style="color: rgb(223, 160, 41);">+</span> <span style="color: #ccc;">Add task</span></button>
+                <div class="add-task-bottom">
+                    <button class="add-task-inline-btn" data-section="today">
+                        <span class="plus-icon">+</span> 
+                        <span class="add-text">Add task</span>
+                    </button>
                 </div>
             </div>
 
             <div class="Upcoming" style="display: none;">
-                <h1 class="page-title">Upcoming
-                </h1>
-                <div class="empty-box">
-                    <img src="../assets/icon-to-do-app.png" class="empty-img">
-                    <h2>No activity in the past week.
-                    </h2>
-                    <p class="desc">
-                        See all changes that have been made in your account, by you or your collaborators.
-                        Free users can still view their completed tasks inside any project.
-                    </p>
-                    <p class="note-desc">
+                <h1 class="page-title">Upcoming</h1>
+                
+                <div class="task-list" id="upcoming-task-list"></div>
 
-                        That's it. No more history to load.
-                    </p>
+                <div id="task-entry-upcoming"></div>
+
+                <div class="add-task-bottom">
+                    <button class="add-task-inline-btn" data-section="upcoming">
+                        <span class="plus-icon">+</span> 
+                        <span class="add-text">Add task</span>
+                    </button>
                 </div>
-
-
             </div>
-            <div class="Filters" style="display: none;">
-                <h1 class="page-title">Filters & Labels
-                </h1>
-                <div class="empty-box">
-                    <img src="../assets/icon-to-do-app.png" class="empty-img">
-                    <h2>No activity in the past week.
-                    </h2>
-                    <p class="desc">
-                        See all changes that have been made in your account, by you or your collaborators.
-                        Free users can still view their completed tasks inside any project.
-                    </p>
-                    <p class="note-desc">
 
-                        That's it. No more history to load.
-                    </p>
+
+            <div class="GettingStarted" style="display: none;">
+                <h1 class="page-title">Getting Started</h1>
+                
+                <div class="task-list" id="getting-started-task-list"></div>
+
+                <div id="task-entry-getting-started"></div>
+
+                <div class="add-task-bottom">
+                    <button class="add-task-inline-btn" data-section="getting-started">
+                        <span class="plus-icon">+</span> 
+                        <span class="add-text">Add task</span>
+                    </button>
                 </div>
-
-
-            </div>
-            <div class="Completed" style="display: none;">
-                <h1 class="page-title">Activity:
-
-                    All projects
-                </h1>
-                <div class="empty-box">
-                    <img src="../assets/icon-to-do-app.png" class="empty-img">
-                    <h2>No activity in the past week.
-                    </h2>
-                    <p class="desc">
-                        See all changes that have been made in your account, by you or your collaborators.
-                        Free users can still view their completed tasks inside any project.
-                    </p>
-                    <p class="note-desc">
-
-                        That's it. No more history to load.
-                    </p>
-                </div>
-
             </div>
 
         </main>
 
     </div>
+
+    <template id="task-entry-template">
+        <div class="task-entry-box">
+            <input type="text" placeholder="Task name" class="task-title-input">
+            <textarea placeholder="Description" class="task-desc-input"></textarea>
+            <div class="task-options">
+                <button class="task-option-btn date-btn">
+                    <i class="far fa-calendar"></i>
+                    <span>Due date</span>
+                </button>
+                <button class="task-option-btn priority-btn">
+                    <i class="fas fa-flag"></i>
+                    <span>Priority</span>
+                </button>
+                <button class="task-option-btn reminder-btn">
+                    <i class="far fa-bell"></i>
+                    <span>Reminders</span>
+                </button>
+                <input type="date" class="task-date" style="display: none;">
+                <select class="task-priority" style="display: none;">
+                    <option value="">Priority</option>
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select>
+            </div>
+            <div class="task-actions">
+                <button class="cancel-task">Cancel</button>
+                <button class="confirm-add-task">Add task</button>
+            </div>
+        </div>
+    </template>
+
+    <template id="task-item-template">
+        <div class="task-item">
+            <div class="task-checkbox-wrapper">
+                <input type="checkbox" class="task-checkbox" id="task-">
+                <label class="checkbox-label" for="task-"></label>
+            </div>
+            <div class="task-content">
+                <div class="task-title-row">
+                    <span class="task-title"></span>
+                </div>
+                <div class="task-desc" style="display: none;"></div>
+                <div class="task-meta"></div>
+            </div>
+            <div class="task-actions-btns">
+                <button class="task-edit-btn" title="Edit">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="task-more-btn" title="More">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+            </div>
+        </div>
+    </template>
+
     <script src="Dashboard.js"></script>
 </body>
 
